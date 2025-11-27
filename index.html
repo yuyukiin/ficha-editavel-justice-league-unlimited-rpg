@@ -180,7 +180,7 @@
         /* CAIXAS DE TEXTO */
         .editable-box {
             width: 100%;
-            min-height: 100px;
+            min-height: 50px;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border-color);
             color: #ddd;
@@ -188,6 +188,10 @@
             font-size: 0.95rem;
             line-height: 1.6;
             white-space: pre-wrap;
+            margin-bottom: 10px;
+        }
+        .editable-box.large {
+            min-height: 100px;
         }
         
         .highlight { color: var(--accent); font-weight: bold; }
@@ -298,10 +302,20 @@
     </section>
 
     <h2>🟡 O Círculo Dourado</h2>
-    <div class="editable-box" contenteditable="true" id="goldenCircle">
-• <span class="highlight">Por que luta:</span> ...
-• <span class="highlight">Como luta:</span> ...
-• <span class="highlight">Por quem luta:</span> ...
+    
+    <div>
+        <span class="highlight">Por que luta:</span>
+        <div class="editable-box" contenteditable="true" id="motivation_why"></div>
+    </div>
+    
+    <div>
+        <span class="highlight">Como luta:</span>
+        <div class="editable-box" contenteditable="true" id="motivation_how"></div>
+    </div>
+    
+    <div>
+        <span class="highlight">Por quem luta:</span>
+        <div class="editable-box" contenteditable="true" id="motivation_for_whom"></div>
     </div>
 
     <h2>📊 Atributos & Combate</h2>
@@ -337,15 +351,15 @@
     </div>
 
     <h2>👊 Ações de Ataque & Manobras</h2>
-    <div class="editable-box" contenteditable="true" id="attacks">
+    <div class="editable-box large" contenteditable="true" id="attacks">
     </div>
 
     <h2>🧬 Poderes</h2>
-    <div class="editable-box" contenteditable="true" id="powers">
+    <div class="editable-box large" contenteditable="true" id="powers">
     </div>
 
     <h2>🎭 Arquétipo & Traços</h2>
-    <div class="editable-box" contenteditable="true" id="traits">
+    <div class="editable-box large" contenteditable="true" id="traits">
     </div>
 
 </div>
