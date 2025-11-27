@@ -6,27 +6,6 @@ Este repositório hospeda uma **Ficha de Personagem Interativa e Editável** par
 
 ---
 
-## 🖼️ Prévia da Ficha Interativa
-
-Abaixo, veja o visual do monitor de status e dos controles da Torre de Vigilância:
-
-### Seção 1: Identidade e Atributos
-<p align="center">
-  <img src="image_1.png" alt="Prévia da Identidade" style="max-width: 600px; height: auto; border-radius: 8px;">
-</p>
-
-### Seção 2: Edição de Poderes
-<p align="center">
-  <img src="image_3.png" alt="Prévia das Seções de Poderes e Arquétipo" style="max-width: 600px; height: auto; border-radius: 8px;">
-</p>
-
-### Seção 3: Barra de Ações
-<p align="center">
-  <img src="image_2.png" alt="Botões de Salvar, Carregar e PDF" style="max-width: 300px; height: auto; border-radius: 8px;">
-</p>
-
----
-
 ## ⚡ Funcionalidades Principais
 
 * **📝 Totalmente Editável:** Clique e digite. Todos os campos são editáveis diretamente na página.

@@ -3,400 +3,446 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dossiê: Novo Herói</title>
+    <title>Dossiê: Justice League Unlimited</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;700&display=swap');
-
-        :root {
-            --dc-blue: #002e5d;
-            --dc-light-blue: #0078f0;
-            --dc-red: #b80812;
-            --tech-bg: #121212;
-            --panel-bg: #1e1e1e;
-            --border-color: #444;
-            --text-color: #e0e0e0;
-            --accent: #f2ce16;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            background-color: var(--tech-bg);
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: var(--text-color);
-        }
-
-        /* CONTAINER PRINCIPAL */
-        .sheet-container {
-            max-width: 950px;
-            margin: 0 auto;
-            background-color: var(--panel-bg);
-            border: 2px solid var(--dc-blue);
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 120, 240, 0.3);
-            border-radius: 10px;
-        }
-
-        /* CABEÇALHO */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 3px solid var(--dc-red);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            font-family: 'Teko', sans-serif;
-            font-size: 3.5rem;
-            margin: 0;
-            text-transform: uppercase;
-            line-height: 0.8;
-            color: var(--dc-light-blue);
-            text-shadow: 2px 2px 0px #000;
-        }
-
-        /* SELETOR DE TIER */
-        .tier-wrapper {
-            text-align: right;
-        }
-        .tier-label {
-            font-family: 'Teko', sans-serif;
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 5px;
-            display: block;
-        }
-        .tier-selector {
-            display: flex;
-            gap: 5px;
-        }
-        .tier-btn {
-            width: 35px;
-            height: 35px;
-            background: #000;
-            border: 1px solid var(--dc-blue);
-            color: #555;
-            font-family: 'Teko', sans-serif;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .tier-btn:hover { border-color: var(--accent); color: var(--accent); }
-        .tier-btn.active {
-            background: var(--dc-light-blue);
-            color: white;
-            border-color: var(--dc-light-blue);
-            box-shadow: 0 0 10px var(--dc-light-blue);
-        }
-
-        h2, h3 {
-            font-family: 'Teko', sans-serif;
-            text-transform: uppercase;
-            color: var(--accent);
-            border-bottom: 1px solid var(--border-color);
-            margin-top: 25px;
-            letter-spacing: 1px;
-        }
-
-        /* INPUTS */
-        input[type="text"], input[type="number"] {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            color: #fff;
-            padding: 8px;
-            width: 100%;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1rem;
-        }
-        input:focus, .editable-box:focus {
-            border-color: var(--dc-light-blue);
-            outline: none;
-            background: rgba(0, 120, 240, 0.1);
-        }
-
-        label {
-            color: var(--dc-light-blue);
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        /* GRIDS */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-        .grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
-
-        /* ATRIBUTOS */
-        .stat-box {
-            background: #000;
-            border: 1px solid var(--dc-blue);
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
-        }
-        .stat-box input {
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border: none;
-            background: transparent;
-            color: var(--accent);
-        }
-
-        /* COMBATE */
-        .combat-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 5px;
-            border-left: 4px solid var(--dc-red);
-        }
-
-        /* CONDIÇÕES */
-        .condition-item {
-            background: #000;
-            padding: 5px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .condition-item.active {
-            background: var(--dc-red);
-            color: white;
-            border-color: var(--dc-red);
-            font-weight: bold;
-        }
-
-        /* CAIXAS DE TEXTO */
-        .editable-box {
-            width: 100%;
-            min-height: 50px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            color: #ddd;
-            padding: 15px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            margin-bottom: 10px;
-        }
-        .editable-box.large {
-            min-height: 100px;
-        }
-        
-        .highlight { color: var(--accent); font-weight: bold; }
-
-        /* BOTÕES */
-        .action-bar {
-            position: fixed; bottom: 20px; right: 20px;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .btn {
-            padding: 12px 20px;
-            border: none; color: white;
-            font-family: 'Teko', sans-serif; font-size: 1.2rem;
-            cursor: pointer; box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        .btn-save { background: var(--dc-blue); }
-        .btn-load { background: #444; }
-        .btn-print { background: var(--dc-red); }
-
-        /* --- MODO DE IMPRESSÃO (FULL DARK) --- */
-        @media print {
-            @page { margin: 0; size: A4; }
-            body { 
-                margin: 0; padding: 0;
-                background-color: #121212 !important; 
-                -webkit-print-color-adjust: exact !important; 
-                print-color-adjust: exact !important; 
-                color: #e0e0e0 !important;
-            }
-            .action-bar { display: none !important; }
-            
-            .sheet-container {
-                width: 100% !important; max-width: 100% !important;
-                margin: 0 !important; border: none !important;
-                box-shadow: none !important; padding: 1cm !important;
-                background-color: #1e1e1e !important;
-            }
-
-            input, .editable-box { 
-                color: #fff !important; 
-                border-color: #444 !important; 
-                background-color: rgba(0, 0, 0, 0.3) !important; 
-            }
-            
-            h1 { color: #0078f0 !important; text-shadow: 2px 2px 0px #000 !important; }
-            h2, h3, .highlight, .stat-box input { color: #f2ce16 !important; }
-            label { color: #0078f0 !important; }
-            
-            .stat-box { background-color: #000 !important; border-color: #002e5d !important; }
-            .combat-card { background-color: #2a2a2a !important; border-left: 4px solid #b80812 !important; }
-            .tier-btn.active { background-color: #0078f0 !important; color: white !important; -webkit-print-color-adjust: exact; }
-            .condition-item.active { background-color: #b80812 !important; -webkit-print-color-adjust: exact; }
-        }
-    </style>
 </head>
 <body>
 
-<div class="sheet-container">
+<div class="pax-bar">
+    <div class="pax-info">
+        <span class="pax-label">RANK:</span> <span id="rankDisplay" class="pax-value">D</span>
+    </div>
+    <div class="pax-info">
+        <span class="pax-label">PAX:</span> 
+        <span id="paxSpentDisplay" class="pax-value">0</span> 
+        <span class="pax-label" style="font-size: 1.2rem; color:#666;">/</span> 
+        <span id="paxMaxDisplay" class="pax-value" style="color: #888;">40</span>
+        <span id="paxStatus" class="pax-status"></span>
+    </div>
+</div>
+
+<div class="dossier-container">
     <header>
         <div>
+            <div class="subtitle">JUSTICE LEAGUE UNLIMITED</div>
             <h1>DOSSIÊ DO HERÓI</h1>
-            <div style="font-size: 1.2rem; color: #aaa; letter-spacing: 2px;">JUSTICE LEAGUE UNLIMITED RPG</div>
         </div>
         
-        <div class="tier-wrapper">
-            <label class="tier-label">NÍVEL DE AMEAÇA (TIER)</label>
-            <div class="tier-selector">
-                <div class="tier-btn" onclick="setTier(this, 'D')">D</div>
+        <div>
+            <label style="text-align: right; margin-bottom: 5px;">NÍVEL DE AMEAÇA</label>
+            <div class="tier-selector" style="display:flex; gap:5px;">
+                <div class="tier-btn active" onclick="setTier(this, 'D')">D</div>
                 <div class="tier-btn" onclick="setTier(this, 'C')">C</div>
                 <div class="tier-btn" onclick="setTier(this, 'B')">B</div>
                 <div class="tier-btn" onclick="setTier(this, 'A')">A</div>
                 <div class="tier-btn" onclick="setTier(this, 'S')">S</div>
             </div>
-            <input type="hidden" id="tierValue">
+            <input type="hidden" id="tierValue" value="D">
         </div>
     </header>
 
-    <section>
-        <div class="grid-3">
-            <div>
-                <label>Identidade Civil</label>
-                <input type="text" id="civilID" placeholder="Nome Real">
-            </div>
-            <div>
-                <label>Nome de Herói</label>
-                <input type="text" id="heroName" placeholder="Codinome">
-            </div>
-            <div>
-                <label>Mentor/Grupo</label>
-                <input type="text" id="predecessor">
-            </div>
-        </div>
-        <div class="grid-3" style="margin-top: 10px;">
-            <div>
-                <label>Origem</label>
-                <input type="text" id="origin">
-            </div>
-            <div>
-                <label>Arquétipo</label>
-                <input type="text" id="archetype">
-            </div>
-            <div>
-                <label>PAX (XP)</label>
-                <input type="text" id="pax">
-            </div>
-        </div>
-    </section>
-
-    <h2>🟡 O Círculo Dourado</h2>
-    
-    <div>
-        <span class="highlight">Por que luta:</span>
-        <div class="editable-box" contenteditable="true" id="motivation_why"></div>
+    <div class="grid-3">
+        <div class="input-group"><label>IDENTIDADE CIVIL</label><input type="text" id="civilID"></div>
+        <div class="input-group"><label>NOME DE HERÓI</label><input type="text" id="heroName" style="color: var(--dc-gold); font-weight: bold;"></div>
+        <div class="input-group"><label>MENTOR / GRUPO</label><input type="text" id="mentor"></div>
     </div>
-    
-    <div>
-        <span class="highlight">Como luta:</span>
-        <div class="editable-box" contenteditable="true" id="motivation_how"></div>
-    </div>
-    
-    <div>
-        <span class="highlight">Por quem luta:</span>
-        <div class="editable-box" contenteditable="true" id="motivation_for_whom"></div>
+    <div class="grid-3">
+        <div class="input-group">
+            <label>ORIGEM</label>
+            <select id="origin" onchange="applyOriginLogic()">
+                <option value="">-- SELECIONE --</option>
+                <option value="Humano">Humano</option>
+                <option value="Meta-Humano">Meta-Humano</option>
+                <option value="Kryptoniano">Kryptoniano</option>
+                <option value="Amazona">Amazona</option>
+                <option value="Atlante">Atlante</option>
+                <option value="Alienígena">Alienígena</option>
+                <option value="Tecnológico">Tecnológico</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>ARQUÉTIPO</label>
+            <select id="archetype">
+                <option value="">-- SELECIONE --</option>
+                <option value="Campeão do Amanhã">Campeão do Amanhã</option>
+                <option value="Cavaleiro das Trevas">Cavaleiro das Trevas</option>
+                <option value="Gênio">Gênio</option>
+                <option value="Herdeiro do Manto">Herdeiro do Manto</option>
+                <option value="Forasteiro">Forasteiro</option>
+                <option value="Guerreiro">Guerreiro</option>
+            </select>
+        </div>
+        <div class="input-group"><label>JOGADOR</label><input type="text" id="player"></div>
     </div>
 
-    <h2>📊 Atributos & Combate</h2>
+    <h2>O CÍRCULO DOURADO</h2>
+    <div class="grid-3">
+        <div><label>POR QUE LUTA?</label><div class="editable-box" contenteditable="true" id="motiv_why"></div></div>
+        <div><label>COMO LUTA?</label><div class="editable-box" contenteditable="true" id="motiv_how"></div></div>
+        <div><label>POR QUEM LUTA?</label><div class="editable-box" contenteditable="true" id="motiv_whom"></div></div>
+    </div>
+
+    <h2>ATRIBUTOS (5 PAX p/ +3)</h2>
+    <p style="color:#666; font-size:0.8rem; margin-top:-10px; margin-bottom:20px;">* Base aumenta de 3 em 3. Use Bônus para valores de Origem/Itens.</p>
     <div class="grid-6">
-        <div class="stat-box"><label>POTÊNCIA</label><input type="number" placeholder="0"></div>
-        <div class="stat-box"><label>PRECISÃO</label><input type="number" placeholder="0"></div>
-        <div class="stat-box"><label>AGILIDADE</label><input type="number" placeholder="0"></div>
-        <div class="stat-box"><label>RESISTÊNCIA</label><input type="number" placeholder="0"></div>
-        <div class="stat-box"><label>MENTE</label><input type="number" placeholder="0"></div>
-        <div class="stat-box"><label>ESPÍRITO</label><input type="number" placeholder="0"></div>
+        <div class="stat-box">
+            <label>POTÊNCIA</label>
+            <div class="stat-split"><div><span class="stat-label-small">Base</span><input type="number" id="pot_base" class="attr-base" value="0" step="3" min="0" oninput="calcPax()"></div><div><span class="stat-label-small">Bônus</span><input type="number" id="pot_bonus" class="attr-bonus" value="0" oninput="calcPax()"></div></div>
+            <span id="pot_total" class="stat-total">0</span><span class="limit-text">LIMITE!</span>
+        </div>
+        <div class="stat-box">
+            <label>PRECISÃO</label>
+            <div class="stat-split"><div><span class="stat-label-small">Base</span><input type="number" id="prec_base" class="attr-base" value="0" step="3" min="0" oninput="calcPax()"></div><div><span class="stat-label-small">Bônus</span><input type="number" id="prec_bonus" class="attr-bonus" value="0" oninput="calcPax()"></div></div>
+            <span id="prec_total" class="stat-total">0</span><span class="limit-text">LIMITE!</span>
+        </div>
+        <div class="stat-box">
+            <label>AGILIDADE</label>
+            <div class="stat-split"><div><span class="stat-label-small">Base</span><input type="number" id="agi_base" class="attr-base" value="0" step="3" min="0" oninput="calcPax()"></div><div><span class="stat-label-small">Bônus</span><input type="number" id="agi_bonus" class="attr-bonus" value="0" oninput="calcPax()"></div></div>
+            <span id="agi_total" class="stat-total">0</span><span class="limit-text">LIMITE!</span>
+        </div>
+        <div class="stat-box">
+            <label>RESISTÊNCIA</label>
+            <div class="stat-split"><div><span class="stat-label-small">Base</span><input type="number" id="res_base" class="attr-base" value="0" step="3" min="0" oninput="calcPax()"></div><div><span class="stat-label-small">Bônus</span><input type="number" id="res_bonus" class="attr-bonus" value="0" oninput="calcPax()"></div></div>
+            <span id="res_total" class="stat-total">0</span><span class="limit-text">LIMITE!</span>
+        </div>
+        <div class="stat-box">
+            <label>MENTE</label>
+            <div class="stat-split"><div><span class="stat-label-small">Base</span><input type="number" id="men_base" class="attr-base" value="0" step="3" min="0" oninput="calcPax()"></div><div><span class="stat-label-small">Bônus</span><input type="number" id="men_bonus" class="attr-bonus" value="0" oninput="calcPax()"></div></div>
+            <span id="men_total" class="stat-total">0</span><span class="limit-text">LIMITE!</span>
+        </div>
+        <div class="stat-box">
+            <label>ESPÍRITO</label>
+            <div class="stat-split"><div><span class="stat-label-small">Base</span><input type="number" id="esp_base" class="attr-base" value="0" step="3" min="0" oninput="calcPax()"></div><div><span class="stat-label-small">Bônus</span><input type="number" id="esp_bonus" class="attr-bonus" value="0" oninput="calcPax()"></div></div>
+            <span id="esp_total" class="stat-total">0</span><span class="limit-text">LIMITE!</span>
+        </div>
     </div>
 
-    <div class="grid-2" style="margin-top: 20px;">
-        <div class="combat-card">
+    <h2>PODERES & HABILIDADES</h2>
+    <div class="add-bar">
+        <select id="powerSelect" style="flex: 3;">
+            <option value="">-- SELECIONE UMA HABILIDADE --</option>
+            <optgroup label="Arquétipos">
+                <option value="Presença Inspiradora (Campeão)|3|Pág. 17|Action">Presença Inspiradora</option>
+                <option value="Ninguém Fica Para Trás (Campeão)|0|Pág. 17|Action">Ninguém Fica Para Trás</option>
+                <option value="Heroísmo Clássico (Campeão)|0|Pág. 17|Action">Heroísmo Clássico</option>
+                <option value="Verdade e Justiça (Campeão)|4|Pág. 17|Action">Verdade e Justiça</option>
+                <option value="Eu Sou a Noite (Cavaleiro)|0|Pág. 17|Action">Eu Sou a Noite</option>
+                <option value="Cinto de Utilidades (Cavaleiro)|3|Pág. 17|Action">Cinto de Utilidades</option>
+                <option value="Preparo (Cavaleiro)|0|Pág. 17|Action">Preparo</option>
+                <option value="Xeque-Mate (Gênio)|0|Pág. 18|Action">Xeque-Mate</option>
+                <option value="É Trivial! (Gênio)|0|Pág. 18|Action">É Trivial!</option>
+                <option value="Blablálogia (Gênio)|0|Pág. 18|Action">Blablálogia</option>
+                <option value="Estilo Novo! (Herdeiro)|0|Pág. 18|Action">Estilo Novo!</option>
+                <option value="Honrar o Manto (Herdeiro)|0|Pág. 18|Action">Honrar o Manto</option>
+                <option value="Passos Ancestrais (Herdeiro)|0|Pág. 18|Action">Passos Ancestrais</option>
+                <option value="Peso do Símbolo (Herdeiro)|3|Pág. 18|Action">Peso do Símbolo</option>
+            </optgroup>
+            <optgroup label="Super Poderes">
+                <option value="Campo de Força|3|Pág. 20">Campo de Força (3 PAX/Grau)</option>
+                <option value="Garras/Presas|3|Pág. 20">Garras/Presas (3 PAX/Grau)</option>
+                <option value="Disparo Energético|4|Pág. 21">Disparo Energético (4 PAX/Grau)</option>
+                <option value="Força de Aceleração|6|Pág. 21">Força de Aceleração (6 PAX/Grau)</option>
+                <option value="Manipulação Elemental|3|Pág. 22">Manipulação Elemental (3 PAX/Grau)</option>
+                <option value="Sentidos Especiais|3|Pág. 22">Sentidos Especiais (3 PAX/Grau)</option>
+                <option value="Super-Força|3|Pág. 23">Super-Força (3 PAX/Grau)</option>
+                <option value="Resistência Aprimorada|3|Pág. 23">Resistência Aprimorada (3 PAX/Grau)</option>
+                <option value="Velocidade Sobre-Humana|3|Pág. 23">Velocidade Sobre-Humana (3 PAX/Grau)</option>
+                <option value="Voo|3|Pág. 24">Voo (3 PAX/Grau)</option>
+            </optgroup>
+            <optgroup label="Treinamento Marcial">
+                <option value="Mestre Marcial|6|Pág. 25">Mestre Marcial (6 PAX/Grau)</option>
+                <option value="Espadachim|6|Pág. 26">Espadachim (6 PAX/Grau)</option>
+                <option value="Atirador|6|Pág. 26">Atirador (6 PAX/Grau)</option>
+            </optgroup>
+            <optgroup label="Tecnologia">
+                <option value="Exoesqueleto|8|Pág. 27">Exoesqueleto (8 PAX/Grau)</option>
+                <option value="Esferas Tecnológicas|4|Pág. 28">Esferas Tecnológicas (4 PAX/Grau)</option>
+            </optgroup>
+            <optgroup label="Conhecimentos (4 PAX)">
+                <option value="Acadêmico|4|Pág. 29|fix">Acadêmico</option>
+                <option value="Acrobacia|4|Pág. 30|fix">Acrobacia</option>
+                <option value="Medicina|4|Pág. 30|fix">Medicina</option>
+                <option value="Subterfúgio|4|Pág. 30|fix">Subterfúgio</option>
+                <option value="Tech|4|Pág. 30|fix">Tech</option>
+            </optgroup>
+            <optgroup label="Traços (4 PAX)">
+                <option value="Beleza Rara|4|Pág. 31|fix">Beleza Rara</option>
+                <option value="Poliglota|4|Pág. 31|fix">Poliglota</option>
+                <option value="Contato Confiável|4|Pág. 31|fix">Contato Confiável</option>
+                <option value="Casca Grossa|4|Pág. 31|fix">Casca Grossa</option>
+                <option value="Frase de Efeito|4|Pág. 31|fix">Frase de Efeito</option>
+                <option value="Gadgets de Bolso|4|Pág. 31|fix">Gadgets de Bolso</option>
+                <option value="Voz da Multidão|4|Pág. 32|fix">Voz da Multidão</option>
+                <option value="Influencer|4|Pág. 32|fix">Influencer</option>
+                <option value="Identidade Secreta|4|Pág. 32|fix">Identidade Secreta</option>
+                <option value="Dupla Dinâmica|4|Pág. 32|fix">Dupla Dinâmica</option>
+                <option value="Filiação|4|Pág. 32|fix">Filiação</option>
+            </optgroup>
+            <option value="Customizado|0|Custom">-- OUTRO / CUSTOMIZADO --</option>
+        </select>
+        <button class="btn-add" onclick="addFromSelect()">+ ADICIONAR</button>
+    </div>
+    <div id="powers-container"></div>
+
+    <h2>EQUIPAMENTOS & ITENS</h2>
+    <div class="add-bar">
+        <select id="equipSelect" style="flex: 3;">
+            <option value="">-- SELECIONE EQUIPAMENTO --</option>
+            <optgroup label="Armas Marciais (1 PAX)">
+                <option value="Espada|1|Pág. 33|fix">Espada (+1 Atq/Dano)</option>
+                <option value="Bastão|1|Pág. 33|fix">Bastão (+1 Atq/Dano)</option>
+                <option value="Faca|1|Pág. 33|fix">Faca (+1 Atq/Dano)</option>
+                <option value="Tridente|1|Pág. 33|fix">Tridente (+1 Atq/Dano)</option>
+                <option value="Clava|1|Pág. 33|fix">Clava (+1 Atq/Dano)</option>
+            </optgroup>
+            <optgroup label="Armas à Distância (1 PAX)">
+                <option value="Arco e Flecha|1|Pág. 34|fix">Arco e Flecha</option>
+                <option value="Pistola|1|Pág. 34|fix">Pistola</option>
+                <option value="Rifle de Precisão|1|Pág. 34|fix">Rifle de Precisão</option>
+                <option value="Metralhadora|1|Pág. 34|fix">Metralhadora</option>
+            </optgroup>
+            <optgroup label="Armaduras">
+                <option value="Armadura de Promethium|3|Pág. 34|fix">Promethium (+2 Def/RD) - 3 PAX</option>
+                <option value="Armadura de Amazonium|4|Pág. 34|fix">Amazonium (+1 Def/Agi/RD) - 4 PAX</option>
+                <option value="Armadura de Metal Enésimo|6|Pág. 34|fix">Metal Enésimo (+1 Def/RD, Voo) - 6 PAX</option>
+                <option value="Traje de Kevlar|2|Pág. 34|fix">Kevlar (+1 Def/RD) - 2 PAX</option>
+                <option value="Armadura de Apokolips|5|Pág. 34|fix">Apokolips (+3 Def/RD, -2 Agi) - 5 PAX</option>
+            </optgroup>
+            <optgroup label="Apetrechos (1 PAX)">
+                <option value="Bomba de Fumaça|1|Pág. 35|fix">Bomba de Fumaça</option>
+                <option value="Arma de Gancho|1|Pág. 35|fix">Arma de Gancho</option>
+                <option value="Spray Curativo|1|Pág. 35|fix">Spray Curativo</option>
+                <option value="Rastreador|1|Pág. 35|fix">Rastreador</option>
+                <option value="Respirador|1|Pág. 35|fix">Respirador</option>
+                <option value="Máscara Alteradora|1|Pág. 35|fix">Máscara Alteradora</option>
+                <option value="P.E.M.|1|Pág. 35|fix">P.E.M.</option>
+            </optgroup>
+        </select>
+        <button class="btn-add" onclick="addEquipFromSelect()">+ ADICIONAR</button>
+    </div>
+    <div id="equip-container"></div>
+
+    <h2>STATUS DE COMBATE</h2>
+    <div class="grid-2">
+        <div class="combat-panel">
             <div class="grid-2">
-                <div><label>DETERMINAÇÃO (PV)</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
-                <div><label>DEFESA</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
-                <div><label>REDUÇÃO DANO (RD)</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
-                <div><label>INICIATIVA</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
+                <div class="input-group"><label>DETERMINAÇÃO (Base+Esp)</label><input type="number" id="det" readonly style="color:var(--dc-red); font-weight:bold;"></div>
+                <div class="input-group"><label>DEFESA (Base+Res)</label><input type="number" id="def" readonly></div>
+                <div class="input-group"><label>REDUÇÃO DANO (RD)</label><input type="number" id="rd"></div>
+                <div class="input-group"><label>INICIATIVA (Agi)</label><input type="number" id="init" readonly></div>
             </div>
         </div>
-
         <div>
-            <label>CONDIÇÕES DE SAÚDE</label>
-            <div style="display: grid; gap: 5px;">
-                <div class="condition-item" onclick="this.classList.toggle('active')">CANSADO</div>
-                <div class="condition-item" onclick="this.classList.toggle('active')">ARRANHADO (-1)</div>
-                <div class="condition-item" onclick="this.classList.toggle('active')">FERIDO (-2)</div>
-                <div class="condition-item" onclick="this.classList.toggle('active')">GRAVEMENTE FERIDO (-4)</div>
-                <div class="condition-item" onclick="this.classList.toggle('active')">💀 DERROTADO</div>
+            <label>CONDIÇÕES</label>
+            <div style="display:grid; gap:5px;">
+                <button class="condition-btn" onclick="toggleCond(this)">CANSADO</button>
+                <button class="condition-btn" onclick="toggleCond(this)">ARRANHADO (-1)</button>
+                <button class="condition-btn" onclick="toggleCond(this)">FERIDO (-2)</button>
+                <button class="condition-btn" onclick="toggleCond(this)">GRAVE (-4)</button>
+                <button class="condition-btn" onclick="toggleCond(this)">💀 DERROTADO</button>
             </div>
         </div>
     </div>
 
-    <h2>👊 Ações de Ataque & Manobras</h2>
-    <div class="editable-box large" contenteditable="true" id="attacks">
+    <h2>AÇÕES DE COMBATE (REFERÊNCIA)</h2>
+    <div class="editable-box" style="font-size: 0.9rem; color: #aaa;">
+        <b>• ATAQUE (1 Ação):</b> Teste de Precisão vs Defesa. Dano na Determinação.<br>
+        <b>• BLOQUEIO (1 Ação):</b> +1 Defesa por Tier até próximo turno.<br>
+        <b>• ESQUIVA (1 Ação):</b> Teste de Agilidade vs Ataque para anular dano.<br>
+        <b>• AJUDAR/MOVER (1 Ação):</b> Auxilia aliado ou o move 1 Distância.<br>
+        <b>• DEFENDER (1 Ação):</b> +3 Defesa para aliado, -3 para você.<br>
+        <b>• SUPERAR LIMITES (2 Ações):</b> Marca Condição para recuperar Determinação Base.
     </div>
 
-    <h2>🧬 Poderes</h2>
-    <div class="editable-box large" contenteditable="true" id="powers">
-    </div>
-
-    <h2>🎭 Arquétipo & Traços</h2>
-    <div class="editable-box large" contenteditable="true" id="traits">
-    </div>
+    <h2>ANOTAÇÕES</h2>
+    <div class="editable-box" contenteditable="true" id="notes" style="min-height: 200px;"></div>
 
 </div>
 
 <div class="action-bar">
     <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadSheet(this)">
-    <button class="btn btn-save" onclick="saveSheet()">💾 Salvar</button>
-    <button class="btn btn-load" onclick="document.getElementById('fileInput').click()">📂 Carregar</button>
-    <button class="btn btn-print" onclick="window.print()">🖨️ PDF</button>
+    <button class="fab-btn btn-save" onclick="saveSheet()" data-tooltip="Salvar">💾</button>
+    <button class="fab-btn btn-load" onclick="document.getElementById('fileInput').click()" data-tooltip="Carregar">📂</button>
+    <button class="fab-btn btn-print" onclick="window.print()" data-tooltip="Gerar PDF">🖨️</button>
 </div>
 
 <script>
-    // TIER SELECTOR LOGIC
-    function setTier(btn, value) {
+    const TIERS = {
+        'D': { pax: 40, det: 12, def: 8, attrLimit: 6, powerLimit: 2 },
+        'C': { pax: 60, det: 15, def: 10, attrLimit: 9, powerLimit: 2 },
+        'B': { pax: 80, det: 18, def: 12, attrLimit: 12, powerLimit: 3 },
+        'A': { pax: 100, det: 21, def: 14, attrLimit: 15, powerLimit: 4 },
+        'S': { pax: 120, det: 25, def: 16, attrLimit: 18, powerLimit: 5 }
+    };
+    let currentTier = 'D';
+
+    function setTier(btn, tier) {
         document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        document.getElementById('tierValue').value = value;
+        currentTier = tier;
+        document.getElementById('rankDisplay').innerText = tier;
+        document.getElementById('paxMaxDisplay').innerText = TIERS[tier].pax;
+        document.getElementById('tierValue').value = tier;
+        calcPax();
     }
 
-    // SAVE SYSTEM
+    function toggleCond(btn) { btn.classList.toggle('active'); }
+
+    // LÓGICA SILENCIOSA DA ORIGEM
+    function applyOriginLogic() {
+        const origin = document.getElementById('origin').value;
+        const potBonusInput = document.getElementById('pot_bonus');
+        
+        // Se for Kryptoniano, aplica +3 automaticamente
+        if (origin === 'Kryptoniano') {
+            potBonusInput.value = 3;
+        } else {
+            // Se sair de Kryptoniano e o valor ainda for 3 (e não tiver sido alterado manualmente para outro valor), reseta
+            if (potBonusInput.value == 3) potBonusInput.value = 0;
+        }
+        calcPax();
+    }
+
+    // ADICIONAR PODER/ITEM
+    function addFromSelect() {
+        const select = document.getElementById('powerSelect');
+        processAdd(select, 'powers-container');
+    }
+    
+    function addEquipFromSelect() {
+        const select = document.getElementById('equipSelect');
+        processAdd(select, 'equip-container', true);
+    }
+
+    function processAdd(select, containerId, isEquip = false) {
+        const val = select.value;
+        if(!val) return;
+        const parts = val.split('|');
+        createPowerCard(parts[0], parseInt(parts[1]), parts[2], parts[3] || 'grad', containerId, '', null, isEquip);
+        select.value = "";
+    }
+
+    function createPowerCard(name, cost, page, type, containerId, savedDesc = '', savedCost = null, isEquip = false) {
+        const container = document.getElementById(containerId);
+        const div = document.createElement('div');
+        div.className = isEquip ? 'power-card equip' : 'power-card';
+        
+        let costInput = '';
+        if (type === 'fix') {
+            costInput = `<input type="number" class="p-cost" value="${cost}" readonly style="width:50px;"> PAX`;
+        } else if (type === 'Custom') {
+            costInput = `<input type="number" class="p-cost" value="${savedCost || 0}" oninput="calcPax()" style="width:60px;"> PAX`;
+        } else if (type === 'Action') {
+            costInput = `<input type="text" class="p-cost" value="0" readonly style="width:30px; border:none; background:transparent; color:#aaa;">`;
+        } else {
+            const initialVal = savedCost || cost;
+            const initialGrade = initialVal/cost;
+            costInput = `Grau: <input type="number" class="p-grade" value="${initialGrade || 1}" min="1" max="5" style="width:50px;" onchange="updatePowerCost(this, ${cost})"> = <span class="p-total">${initialVal}</span> PAX`;
+        }
+
+        div.innerHTML = `
+            <button class="btn-remove" onclick="removePower(this)">✕</button>
+            <div class="power-header">
+                <div class="power-name">${name}</div>
+                <div class="power-meta">${page}</div>
+                <div class="cost-ctrl">
+                    ${costInput}
+                    <label style="display:inline; font-size:0.7rem; color:#aaa; margin:0;">
+                        <input type="checkbox" class="free-check" onchange="calcPax()"> Gratuito/Origem
+                    </label>
+                </div>
+            </div>
+            <div class="editable-box p-desc" contenteditable="true" placeholder="Descrição...">${savedDesc}</div>
+            <div class="limit-text">⚠️ ERRO: LIMITE DE GRAU (${TIERS[currentTier].powerLimit}) EXCEDIDO!</div>
+            <div class="limit-text-warn">⚠️ AVISO: Apenas 1 poder permitido neste Grau.</div>
+        `;
+        container.appendChild(div);
+        calcPax();
+    }
+
+    function updatePowerCost(input, base) {
+        const grade = parseInt(input.value) || 1;
+        const total = grade * base;
+        input.parentElement.querySelector('.p-total').innerText = total;
+        calcPax();
+    }
+
+    function removePower(btn) { btn.parentElement.remove(); calcPax(); }
+
+    function calcPax() {
+        let totalSpent = 0;
+        const tierData = TIERS[currentTier];
+
+        // 1. ATRIBUTOS
+        document.querySelectorAll('.stat-box').forEach(box => {
+            const baseInput = box.querySelector('.attr-base');
+            const bonusInput = box.querySelector('.attr-bonus');
+            let base = parseInt(baseInput.value) || 0;
+            if(base % 3 !== 0) { base = Math.floor(base/3)*3; baseInput.value = base; } // Auto-corrige
+            const total = base + (parseInt(bonusInput.value) || 0);
+            box.querySelector('.stat-total').innerText = total > 0 ? '+' + total : total;
+            if (total > tierData.attrLimit) box.classList.add('limit-error');
+            else box.classList.remove('limit-error');
+            if(base > 0) totalSpent += (base / 3) * 5;
+        });
+
+        // 2. PODERES & VALIDAÇÃO
+        let maxGradeCount = 0;
+        document.querySelectorAll('.power-card').forEach(card => {
+            const gradeInput = card.querySelector('.p-grade');
+            if(gradeInput) {
+                const grade = parseInt(gradeInput.value) || 1;
+                if (grade === tierData.powerLimit) maxGradeCount++;
+            }
+        });
+
+        document.querySelectorAll('.power-card').forEach(card => {
+            const gradeInput = card.querySelector('.p-grade');
+            card.classList.remove('limit-error'); card.classList.remove('limit-warning');
+
+            if(gradeInput) {
+                const grade = parseInt(gradeInput.value) || 1;
+                if(grade > tierData.powerLimit) card.classList.add('limit-error');
+                else if(grade === tierData.powerLimit && maxGradeCount > 1) card.classList.add('limit-warning');
+            }
+
+            if(!card.querySelector('.free-check').checked) {
+                if (card.innerHTML.includes('(Hab. Arquétipo)')) return;
+                if (card.querySelector('.p-total')) totalSpent += parseInt(card.querySelector('.p-total').innerText) || 0;
+                else if (card.querySelector('.p-cost')) totalSpent += parseInt(card.querySelector('.p-cost').value) || 0;
+            }
+        });
+
+        document.getElementById('paxSpentDisplay').innerText = Math.ceil(totalSpent);
+        const status = document.getElementById('paxStatus');
+        if(totalSpent > tierData.pax) { status.innerText = "⚠️ EXCEDIDO!"; status.className = "pax-status over"; }
+        else { status.innerText = "OK"; status.className = "pax-status ok"; }
+
+        // Derivados
+        const esp = parseInt(document.getElementById('esp_base').value||0) + parseInt(document.getElementById('esp_bonus').value||0);
+        const res = parseInt(document.getElementById('res_base').value||0) + parseInt(document.getElementById('res_bonus').value||0);
+        const agi = parseInt(document.getElementById('agi_base').value||0) + parseInt(document.getElementById('agi_bonus').value||0);
+        
+        document.getElementById('det').value = tierData.det + esp;
+        document.getElementById('def').value = tierData.def + res;
+        document.getElementById('init').value = agi;
+    }
+
     function saveSheet() {
-        const data = {};
-        document.querySelectorAll('input').forEach((el, i) => {
-            if(el.id) data[el.id] = el.value;
-            else data['input_'+i] = el.value;
-        });
-        document.querySelectorAll('.editable-box').forEach((el) => {
-            if(el.id) data[el.id] = el.innerHTML;
-        });
-        const activeConditions = [];
-        document.querySelectorAll('.condition-item').forEach((el, i) => {
-            if(el.classList.contains('active')) activeConditions.push(i);
-        });
-        data['conditions'] = activeConditions;
-        data['tierValue'] = document.getElementById('tierValue').value;
+        const data = { inputs: {}, content: {}, powers: [], equips: [], conditions: [], tier: '' };
+        document.querySelectorAll('input:not(.p-grade):not(.p-cost):not(.attr-base):not(.attr-bonus):not(.free-check)').forEach(el => { if(el.id) data.inputs[el.id] = el.value; });
+        const attrs = {};
+        document.querySelectorAll('.attr-base').forEach(el => attrs[el.id] = el.value);
+        document.querySelectorAll('.attr-bonus').forEach(el => attrs[el.id] = el.value);
+        data.attrs = attrs;
+        document.querySelectorAll('.editable-box:not(.p-desc)').forEach(el => { if(el.id) data.content[el.id] = el.innerHTML; });
+        data.tier = document.getElementById('tierValue').value;
+        document.querySelectorAll('.condition-btn').forEach((el, i) => { if(el.classList.contains('active')) data.conditions.push(i); });
+        
+        document.querySelectorAll('#powers-container .power-card').forEach(card => extractCardData(card, data.powers));
+        document.querySelectorAll('#equip-container .power-card').forEach(card => extractCardData(card, data.equips));
 
         const name = document.getElementById('heroName').value || 'heroi';
         const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
@@ -406,43 +452,52 @@
         link.click();
     }
 
-    // LOAD SYSTEM
+    function extractCardData(card, array) {
+        let costVal = 0;
+        let type = 'grad';
+        if(card.innerHTML.includes('Hab. Arquétipo')) type = 'Action';
+        else if(card.querySelector('.p-total')) { costVal = card.querySelector('.p-total').innerText; type = 'grad'; }
+        else { costVal = card.querySelector('.p-cost').value; type = card.querySelector('.p-cost').readOnly ? 'fix' : 'Custom'; }
+
+        array.push({
+            name: card.querySelector('.power-name').innerText,
+            page: card.querySelector('.power-meta').innerText,
+            cost: costVal,
+            desc: card.querySelector('.p-desc').innerHTML,
+            free: card.querySelector('.free-check').checked,
+            type: type
+        });
+    }
+
     function loadSheet(input) {
         const file = input.files[0];
-        if (!file) return;
+        if(!file) return;
         const reader = new FileReader();
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                for (const key in data) {
-                    if(key === 'conditions' || key === 'tierValue') continue;
-                    const el = document.getElementById(key);
-                    if (el) {
-                        if (el.tagName === 'DIV') el.innerHTML = data[key];
-                        else el.value = data[key];
-                    } else if (key.startsWith('input_')) {
-                        const idx = key.split('_')[1];
-                        const inputs = document.querySelectorAll('input');
-                        if(inputs[idx]) inputs[idx].value = data[key];
-                    }
-                }
-                document.querySelectorAll('.condition-item').forEach(el => el.classList.remove('active'));
-                if (data['conditions']) {
-                    const conditions = document.querySelectorAll('.condition-item');
-                    data['conditions'].forEach(i => { if(conditions[i]) conditions[i].classList.add('active'); });
-                }
-                if (data['tierValue']) {
-                    const tiers = document.querySelectorAll('.tier-btn');
-                    const vals = ['D','C','B','A','S'];
-                    const idx = vals.indexOf(data['tierValue']);
-                    if(idx > -1) setTier(tiers[idx], data['tierValue']);
-                }
-                alert('Dossiê carregado com sucesso.');
+                for (const key in data.inputs) { const el = document.getElementById(key); if(el) el.value = data.inputs[key]; }
+                for (const key in data.content) { const el = document.getElementById(key); if(el) el.innerHTML = data.content[key]; }
+                if(data.attrs) { for (const key in data.attrs) { const el = document.getElementById(key); if(el) el.value = data.attrs[key]; } }
+                if(data.tier) setTier(document.querySelectorAll('.tier-btn')[['D','C','B','A','S'].indexOf(data.tier)], data.tier);
+                
+                document.querySelectorAll('.condition-btn').forEach(el => el.classList.remove('active'));
+                if(data.conditions) data.conditions.forEach(i => document.querySelectorAll('.condition-btn')[i].classList.add('active'));
+                
+                document.getElementById('powers-container').innerHTML = '';
+                if(data.powers) data.powers.forEach(p => createPowerCard(p.name, parseInt(p.cost), p.page, p.type, 'powers-container', p.desc, p.cost, false));
+                
+                document.getElementById('equip-container').innerHTML = '';
+                if(data.equips) data.equips.forEach(p => createPowerCard(p.name, parseInt(p.cost), p.page, p.type, 'equip-container', p.desc, p.cost, true));
+
+                calcPax();
             } catch (err) { alert('Erro ao ler arquivo.'); }
         };
         reader.readAsText(file);
         input.value = '';
     }
+    
+    window.onload = () => calcPax();
 </script>
 
 </body>
