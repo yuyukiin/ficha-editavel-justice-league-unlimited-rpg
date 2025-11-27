@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossiê: Novo Herói</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --dc-blue: #002e5d;
+            --dc-light-blue: #0078f0;
+            --dc-red: #b80812;
+            --tech-bg: #121212;
+            --panel-bg: #1e1e1e;
+            --border-color: #444;
+            --text-color: #e0e0e0;
+            --accent: #f2ce16;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--tech-bg);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: var(--text-color);
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .sheet-container {
+            max-width: 950px;
+            margin: 0 auto;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--dc-blue);
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 120, 240, 0.3);
+            border-radius: 10px;
+        }
+
+        /* CABEÇALHO */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid var(--dc-red);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: 3.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            line-height: 0.8;
+            color: var(--dc-light-blue);
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        /* SELETOR DE TIER */
+        .tier-wrapper {
+            text-align: right;
+        }
+        .tier-label {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+            display: block;
+        }
+        .tier-selector {
+            display: flex;
+            gap: 5px;
+        }
+        .tier-btn {
+            width: 35px;
+            height: 35px;
+            background: #000;
+            border: 1px solid var(--dc-blue);
+            color: #555;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .tier-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .tier-btn.active {
+            background: var(--dc-light-blue);
+            color: white;
+            border-color: var(--dc-light-blue);
+            box-shadow: 0 0 10px var(--dc-light-blue);
+        }
+
+        h2, h3 {
+            font-family: 'Teko', sans-serif;
+            text-transform: uppercase;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border-color);
+            margin-top: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* INPUTS */
+        input[type="text"], input[type="number"] {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 8px;
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+        }
+        input:focus, .editable-box:focus {
+            border-color: var(--dc-light-blue);
+            outline: none;
+            background: rgba(0, 120, 240, 0.1);
+        }
+
+        label {
+            color: var(--dc-light-blue);
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* GRIDS */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+
+        /* ATRIBUTOS */
+        .stat-box {
+            background: #000;
+            border: 1px solid var(--dc-blue);
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .stat-box input {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            color: var(--accent);
+        }
+
+        /* COMBATE */
+        .combat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--dc-red);
+        }
+
+        /* CONDIÇÕES */
+        .condition-item {
+            background: #000;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .condition-item.active {
+            background: var(--dc-red);
+            color: white;
+            border-color: var(--dc-red);
+            font-weight: bold;
+        }
+
+        /* CAIXAS DE TEXTO */
+        .editable-box {
+            width: 100%;
+            min-height: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            color: #ddd;
+            padding: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        .highlight { color: var(--accent); font-weight: bold; }
+
+        /* BOTÕES */
+        .action-bar {
+            position: fixed; bottom: 20px; right: 20px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .btn {
+            padding: 12px 20px;
+            border: none; color: white;
+            font-family: 'Teko', sans-serif; font-size: 1.2rem;
+            cursor: pointer; box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-save { background: var(--dc-blue); }
+        .btn-load { background: #444; }
+        .btn-print { background: var(--dc-red); }
+
+        /* --- MODO DE IMPRESSÃO (FULL DARK) --- */
+        @media print {
+            @page { margin: 0; size: A4; }
+            body { 
+                margin: 0; padding: 0;
+                background-color: #121212 !important; 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important; 
+                color: #e0e0e0 !important;
+            }
+            .action-bar { display: none !important; }
+            
+            .sheet-container {
+                width: 100% !important; max-width: 100% !important;
+                margin: 0 !important; border: none !important;
+                box-shadow: none !important; padding: 1cm !important;
+                background-color: #1e1e1e !important;
+            }
+
+            input, .editable-box { 
+                color: #fff !important; 
+                border-color: #444 !important; 
+                background-color: rgba(0, 0, 0, 0.3) !important; 
+            }
+            
+            h1 { color: #0078f0 !important; text-shadow: 2px 2px 0px #000 !important; }
+            h2, h3, .highlight, .stat-box input { color: #f2ce16 !important; }
+            label { color: #0078f0 !important; }
+            
+            .stat-box { background-color: #000 !important; border-color: #002e5d !important; }
+            .combat-card { background-color: #2a2a2a !important; border-left: 4px solid #b80812 !important; }
+            .tier-btn.active { background-color: #0078f0 !important; color: white !important; -webkit-print-color-adjust: exact; }
+            .condition-item.active { background-color: #b80812 !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sheet-container">
+    <header>
+        <div>
+            <h1>DOSSIÊ DO HERÓI</h1>
+            <div style="font-size: 1.2rem; color: #aaa; letter-spacing: 2px;">JUSTICE LEAGUE UNLIMITED RPG</div>
+        </div>
+        
+        <div class="tier-wrapper">
+            <label class="tier-label">NÍVEL DE AMEAÇA (TIER)</label>
+            <div class="tier-selector">
+                <div class="tier-btn" onclick="setTier(this, 'D')">D</div>
+                <div class="tier-btn" onclick="setTier(this, 'C')">C</div>
+                <div class="tier-btn" onclick="setTier(this, 'B')">B</div>
+                <div class="tier-btn" onclick="setTier(this, 'A')">A</div>
+                <div class="tier-btn" onclick="setTier(this, 'S')">S</div>
+            </div>
+            <input type="hidden" id="tierValue">
+        </div>
+    </header>
+
+    <section>
+        <div class="grid-3">
+            <div>
+                <label>Identidade Civil</label>
+                <input type="text" id="civilID" placeholder="Nome Real">
+            </div>
+            <div>
+                <label>Nome de Herói</label>
+                <input type="text" id="heroName" placeholder="Codinome">
+            </div>
+            <div>
+                <label>Mentor/Grupo</label>
+                <input type="text" id="predecessor">
+            </div>
+        </div>
+        <div class="grid-3" style="margin-top: 10px;">
+            <div>
+                <label>Origem</label>
+                <input type="text" id="origin">
+            </div>
+            <div>
+                <label>Arquétipo</label>
+                <input type="text" id="archetype">
+            </div>
+            <div>
+                <label>PAX (XP)</label>
+                <input type="text" id="pax">
+            </div>
+        </div>
+    </section>
+
+    <h2>🟡 O Círculo Dourado</h2>
+    <div class="editable-box" contenteditable="true" id="goldenCircle">
+• <span class="highlight">Por que luta:</span> ...
+• <span class="highlight">Como luta:</span> ...
+• <span class="highlight">Por quem luta:</span> ...
+    </div>
+
+    <h2>📊 Atributos & Combate</h2>
+    <div class="grid-6">
+        <div class="stat-box"><label>POTÊNCIA</label><input type="number" placeholder="0"></div>
+        <div class="stat-box"><label>PRECISÃO</label><input type="number" placeholder="0"></div>
+        <div class="stat-box"><label>AGILIDADE</label><input type="number" placeholder="0"></div>
+        <div class="stat-box"><label>RESISTÊNCIA</label><input type="number" placeholder="0"></div>
+        <div class="stat-box"><label>MENTE</label><input type="number" placeholder="0"></div>
+        <div class="stat-box"><label>ESPÍRITO</label><input type="number" placeholder="0"></div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 20px;">
+        <div class="combat-card">
+            <div class="grid-2">
+                <div><label>DETERMINAÇÃO (PV)</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
+                <div><label>DEFESA</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
+                <div><label>REDUÇÃO DANO (RD)</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
+                <div><label>INICIATIVA</label><input type="number" placeholder="0" style="font-size: 1.5rem; font-weight: bold;"></div>
+            </div>
+        </div>
+
+        <div>
+            <label>CONDIÇÕES DE SAÚDE</label>
+            <div style="display: grid; gap: 5px;">
+                <div class="condition-item" onclick="this.classList.toggle('active')">CANSADO</div>
+                <div class="condition-item" onclick="this.classList.toggle('active')">ARRANHADO (-1)</div>
+                <div class="condition-item" onclick="this.classList.toggle('active')">FERIDO (-2)</div>
+                <div class="condition-item" onclick="this.classList.toggle('active')">GRAVEMENTE FERIDO (-4)</div>
+                <div class="condition-item" onclick="this.classList.toggle('active')">💀 DERROTADO</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>👊 Ações de Ataque & Manobras</h2>
+    <div class="editable-box" contenteditable="true" id="attacks">
+    </div>
+
+    <h2>🧬 Poderes</h2>
+    <div class="editable-box" contenteditable="true" id="powers">
+    </div>
+
+    <h2>🎭 Arquétipo & Traços</h2>
+    <div class="editable-box" contenteditable="true" id="traits">
+    </div>
+
+</div>
+
+<div class="action-bar">
+    <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadSheet(this)">
+    <button class="btn btn-save" onclick="saveSheet()">💾 Salvar</button>
+    <button class="btn btn-load" onclick="document.getElementById('fileInput').click()">📂 Carregar</button>
+    <button class="btn btn-print" onclick="window.print()">🖨️ PDF</button>
+</div>
+
+<script>
+    // TIER SELECTOR LOGIC
+    function setTier(btn, value) {
+        document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tierValue').value = value;
+    }
+
+    // SAVE SYSTEM
+    function saveSheet() {
+        const data = {};
+        document.querySelectorAll('input').forEach((el, i) => {
+            if(el.id) data[el.id] = el.value;
+            else data['input_'+i] = el.value;
+        });
+        document.querySelectorAll('.editable-box').forEach((el) => {
+            if(el.id) data[el.id] = el.innerHTML;
+        });
+        const activeConditions = [];
+        document.querySelectorAll('.condition-item').forEach((el, i) => {
+            if(el.classList.contains('active')) activeConditions.push(i);
+        });
+        data['conditions'] = activeConditions;
+        data['tierValue'] = document.getElementById('tierValue').value;
+
+        const name = document.getElementById('heroName').value || 'heroi';
+        const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${name}_JLU.json`;
+        link.click();
+    }
+
+    // LOAD SYSTEM
+    function loadSheet(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                for (const key in data) {
+                    if(key === 'conditions' || key === 'tierValue') continue;
+                    const el = document.getElementById(key);
+                    if (el) {
+                        if (el.tagName === 'DIV') el.innerHTML = data[key];
+                        else el.value = data[key];
+                    } else if (key.startsWith('input_')) {
+                        const idx = key.split('_')[1];
+                        const inputs = document.querySelectorAll('input');
+                        if(inputs[idx]) inputs[idx].value = data[key];
+                    }
+                }
+                document.querySelectorAll('.condition-item').forEach(el => el.classList.remove('active'));
+                if (data['conditions']) {
+                    const conditions = document.querySelectorAll('.condition-item');
+                    data['conditions'].forEach(i => { if(conditions[i]) conditions[i].classList.add('active'); });
+                }
+                if (data['tierValue']) {
+                    const tiers = document.querySelectorAll('.tier-btn');
+                    const vals = ['D','C','B','A','S'];
+                    const idx = vals.indexOf(data['tierValue']);
+                    if(idx > -1) setTier(tiers[idx], data['tierValue']);
+                }
+                alert('Dossiê carregado com sucesso.');
+            } catch (err) { alert('Erro ao ler arquivo.'); }
+        };
+        reader.readAsText(file);
+        input.value = '';
+    }
+</script>
+
+</body>
+</html>
