@@ -58,48 +58,38 @@
         </div>
     </header>
 
-    <div class="identity-container">
-        <div class="char-portrait" onclick="document.getElementById('charImgInput').click()">
-            <img id="charImageDisplay" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMwNTBhMTYiLz48dGV4dCB4PSI1MCIgeT0iNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPisgRk9UTzwvdGV4dD48L3N2Zz4=" alt="Foto">
-            <input type="file" id="charImgInput" accept="image/*" style="display:none" onchange="uploadImage(this)">
-            <div class="char-portrait-overlay">ALTERAR IMAGEM</div>
+    <div class="grid-3">
+        <div class="input-group"><label>IDENTIDADE CIVIL</label><input type="text" id="civilID"></div>
+        <div class="input-group"><label>NOME DE HERÓI</label><input type="text" id="heroName" style="color: var(--dc-gold); font-weight: bold; font-size: 1.3rem;"></div>
+        <div class="input-group"><label>MENTOR / GRUPO</label><input type="text" id="mentor"></div>
+    </div>
+    <div class="grid-3">
+        <div class="input-group">
+            <label>ORIGEM</label>
+            <select id="origin" onchange="applyOriginLogic()">
+                <option value="">-- SELECIONE --</option>
+                <option value="Humano">Humano</option>
+                <option value="Meta-Humano">Meta-Humano</option>
+                <option value="Kryptoniano">Kryptoniano</option>
+                <option value="Amazona">Amazona</option>
+                <option value="Atlante">Atlante</option>
+                <option value="Alienígena">Alienígena</option>
+                <option value="Tecnológico">Tecnológico</option>
+            </select>
         </div>
-
-        <div class="identity-inputs">
-            <div class="grid-3">
-                <div class="input-group"><label>IDENTIDADE CIVIL</label><input type="text" id="civilID"></div>
-                <div class="input-group"><label>NOME DE HERÓI</label><input type="text" id="heroName" style="color: var(--dc-gold); font-weight: bold; font-size: 1.3rem;"></div>
-                <div class="input-group"><label>MENTOR / GRUPO</label><input type="text" id="mentor"></div>
-            </div>
-            <div class="grid-3">
-                <div class="input-group">
-                    <label>ORIGEM</label>
-                    <select id="origin" onchange="applyOriginLogic()">
-                        <option value="">-- SELECIONE --</option>
-                        <option value="Humano">Humano</option>
-                        <option value="Meta-Humano">Meta-Humano</option>
-                        <option value="Kryptoniano">Kryptoniano</option>
-                        <option value="Amazona">Amazona</option>
-                        <option value="Atlante">Atlante</option>
-                        <option value="Alienígena">Alienígena</option>
-                        <option value="Tecnológico">Tecnológico</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>ARQUÉTIPO</label>
-                    <select id="archetype">
-                        <option value="">-- SELECIONE --</option>
-                        <option value="Campeão do Amanhã">Campeão do Amanhã</option>
-                        <option value="Cavaleiro das Trevas">Cavaleiro das Trevas</option>
-                        <option value="Gênio">Gênio</option>
-                        <option value="Herdeiro do Manto">Herdeiro do Manto</option>
-                        <option value="Forasteiro">Forasteiro</option>
-                        <option value="Guerreiro">Guerreiro</option>
-                    </select>
-                </div>
-                <div class="input-group"><label>JOGADOR</label><input type="text" id="player"></div>
-            </div>
+        <div class="input-group">
+            <label>ARQUÉTIPO</label>
+            <select id="archetype">
+                <option value="">-- SELECIONE --</option>
+                <option value="Campeão do Amanhã">Campeão do Amanhã</option>
+                <option value="Cavaleiro das Trevas">Cavaleiro das Trevas</option>
+                <option value="Gênio">Gênio</option>
+                <option value="Herdeiro do Manto">Herdeiro do Manto</option>
+                <option value="Forasteiro">Forasteiro</option>
+                <option value="Guerreiro">Guerreiro</option>
+            </select>
         </div>
+        <div class="input-group"><label>JOGADOR</label><input type="text" id="player"></div>
     </div>
 
     <h2>O CÍRCULO DOURADO</h2>
@@ -248,10 +238,10 @@
     </div>
 
     <h2>INVENTÁRIO</h2>
-    <div class="editable-box" contenteditable="true" id="inventory" style="min-height: 150px;"></div>
+    <div class="editable-box" contenteditable="true" id="inventory" style="min-height: 150px;" placeholder="Liste aqui itens extras, dinheiro e detalhes de carga..."></div>
 
     <h2>ANOTAÇÕES GERAIS</h2>
-    <div class="editable-box" contenteditable="true" id="notes" style="min-height: 150px;"></div>
+    <div class="editable-box" contenteditable="true" id="notes" style="min-height: 150px;" placeholder="Histórico, aliados, missões atuais..."></div>
 
     <h2>USO DE PONTOS DE ROTEIRO (PÁGS 6-9)</h2>
     <div class="editable-box" style="font-size: 0.9rem; color: #aaa; min-height: 80px;">
@@ -325,18 +315,6 @@
         if (origin === 'Kryptoniano') potBonusInput.value = 3;
         else if (potBonusInput.value == 3) potBonusInput.value = 0;
         calcPax();
-    }
-    
-    // Upload Image
-    function uploadImage(input) {
-        const file = input.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('charImageDisplay').src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
     }
 
     function addFromSelect() {
@@ -473,7 +451,6 @@
 
     function saveSheet() {
         const data = { inputs: {}, content: {}, powers: [], equips: [], conditions: [], tier: '' };
-        // Pula o input file na hora de salvar
         document.querySelectorAll('input:not(.p-grade):not(.p-cost):not(.attr-base):not(.attr-bonus):not(.free-check):not(#fileInput)').forEach(el => { if(el.id) data.inputs[el.id] = el.value; });
         const attrs = {};
         document.querySelectorAll('.attr-base').forEach(el => attrs[el.id] = el.value);
@@ -485,9 +462,6 @@
         data.roteiro = document.getElementById('roteiroVal').innerText;
         data.crisis = document.getElementById('crisisBtn').classList.contains('active');
         
-        const img = document.getElementById('charImageDisplay');
-        if (img.src.includes('data:image')) data.charImage = img.src;
-
         document.querySelectorAll('#powers-container .power-card').forEach(card => extractCardData(card, data.powers));
         document.querySelectorAll('#equip-container .power-card').forEach(card => extractCardData(card, data.equips));
 
@@ -530,7 +504,6 @@
                 if(data.tier) setTier(document.querySelectorAll('.tier-btn')[['D','C','B','A','S'].indexOf(data.tier)], data.tier);
                 if(data.roteiro) document.getElementById('roteiroVal').innerText = data.roteiro;
                 if(data.crisis) document.getElementById('crisisBtn').classList.add('active');
-                if(data.charImage) document.getElementById('charImageDisplay').src = data.charImage;
                 
                 document.querySelectorAll('.condition-btn').forEach(el => el.classList.remove('active'));
                 if(data.conditions) data.conditions.forEach(i => document.querySelectorAll('.condition-btn')[i].classList.add('active'));
