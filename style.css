@@ -204,47 +204,40 @@ option, optgroup { background-color: #111; color: #fff; }
     body { padding-top: 160px; }
 }
 
-/* --- PRINT MODE CORRIGIDO PARA PREENCHER A PÁGINA --- */
+/* --- PRINT MODE CORRIGIDO --- */
 @media print {
     @page { margin: 0; size: A4; }
     
-    /* 1. Forçar fundo escuro e texto claro */
-    body {
-        margin: 0; padding: 0;
-        background-color: #0f1926 !important; /* Cor do container */
+    html, body {
+        /* O SEGREDO: Força a altura mínima da página para cobrir tudo */
+        min-height: 100% !important; 
+        margin: 0 !important; 
+        padding: 0 !important;
+        background-color: #0f1926 !important; /* Cor exata do container */
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color: #e0e0e0 !important;
     }
     
-    /* 2. Ocultar botões de controle */
     .pax-bar, .add-bar, .btn-remove, .action-bar, .char-portrait-overlay, .limit-text { 
         display: none !important; 
     }
 
-    /* 3. Esticar o container para ocupar a folha inteira */
     .dossier-container {
         width: 100% !important;
         max-width: 100% !important;
+        /* Estica o container para ocupar 100% da altura da folha de papel */
+        min-height: 100vh !important; 
         border: none !important;
         box-shadow: none !important;
         margin: 0 !important;
-        padding: 1.5cm !important; /* Margem interna da folha */
-        background-color: #0f1926 !important; /* Garante que não fique branco */
-        min-height: 100vh; /* Força altura mínima */
+        padding: 1.5cm !important;
+        background-color: #0f1926 !important;
     }
 
-    /* 4. Ajuste de cores de inputs e bordas */
-    input, .editable-box, select {
-        color: #fff !important;
-        border-bottom: 1px solid #444 !important;
-        background: transparent !important;
-    }
-    
+    input, .editable-box, select { color: #fff !important; border-bottom: 1px solid #444 !important; background: transparent !important; }
     .tier-btn.active { background-color: #0078f0 !important; color: white !important; border-color: #0078f0 !important; }
     .condition-btn.active { background-color: #e62429 !important; border-color: #e62429 !important; }
-    
-    /* 5. Forçar cores dos cards */
     .stat-box { background-color: #080e16 !important; border-color: #333 !important; }
     .power-card { background-color: rgba(255, 255, 255, 0.05) !important; border-left-color: #0078f0 !important; }
     .combat-panel { background-color: rgba(255, 255, 255, 0.05) !important; }
